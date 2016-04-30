@@ -52,9 +52,8 @@ Collaboratio.prototype.init = function () {
 	var cioAdapter = require('./lib/adapter')(this.socketio);
 	cioAdapter.init();
 
-	var c = this;
-	c.socketio.on('connection', function (socket) {
-		c.loadEventManagers();		// Loading event managers
-		c.registerEvents(socket);	// Register all events from managers
-	});
+	this.socketio.on('connection', function (socket) {
+		this.loadEventManagers();			// Loading event managers
+		this.registerEvents(socket);	// Register all events from managers
+	}).bind(this);
 };
