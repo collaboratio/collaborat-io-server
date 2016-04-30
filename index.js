@@ -55,5 +55,5 @@ Collaboratio.prototype.init = function () {
 	this.socketio.on('connection', function (socket) {
 		this.loadEventManagers();			// Loading event managers
 		this.registerEvents(socket);	// Register all events from managers
-	}).bind(this);
+	}.bind(this));
 };
