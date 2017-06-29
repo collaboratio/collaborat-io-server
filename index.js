@@ -20,13 +20,10 @@ class Collaboratio {
 	 * Load the events managers from /lib/managers folder
 	 */
 	loadEventManagers (socket) {
-		var requires = autoload(__dirname + '/lib/managers');
-		for (var managerName in requires) {
-			if (requires.hasOwnProperty(managerName)) {
-				this.managers.push(new (requires[managerName])(socket));
-			}
+		var requires = autoload(`${__dirname}/lib/managers`);
+		for (manager of requires) {
+			this.managers.push(new (manager)(socket));
 		}
-
 	};
 
 	/**
@@ -34,7 +31,7 @@ class Collaboratio {
 	 * @param  Socket.io socket
 	 */
 	registerEvents ( ) {
-		this.managers.forEach( (manager) => { manager.registerEvents() });
+		this.managers.forEach( (manager) => manager.registerEvents() );
 	};
 
 	/**
