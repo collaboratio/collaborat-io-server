@@ -20,9 +20,9 @@ class Collaboratio {
 	 * Load the events managers from /lib/managers folder
 	 */
 	loadEventManagers (socket) {
-		var requires = autoload(`${__dirname}/lib/managers`);
+		let requires = autoload(`${__dirname}/lib/managers`);
 		for (manager of requires) {
-			this.managers.push(new (manager)(socket));
+			this.managers.push(new manager(socket));
 		}
 	};
 
@@ -41,8 +41,9 @@ class Collaboratio {
 		this.server.listen(this.port);
 
 		// Execute adapter
-		var cioAdapter = require('./lib/adapter')(this.socketio);
-		cioAdapter.init();
+		let Adapter = require('./lib/adapter');
+		(new Adapter(this.socketio)).init();
+
 		this.socketio.on('connection', (socket) => {
 			this.loadEventManagers(socket);			// Loading event managers
 			this.registerEvents();	// Register all events from managers
